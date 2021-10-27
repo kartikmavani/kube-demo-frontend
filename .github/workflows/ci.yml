@@ -18,11 +18,11 @@ jobs:
           distribution: 'adopt'
 
       - name: Build frontend with Maven
-        run: mvn clean install -Pgithub --file pom.xml
+        run: mvn clean install -q -Pgithub --file pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PACKAGE_REPO_PASSWORD }}
 
-      - name: Get property-details-fetcher version
+      - name: Get kube-demo-frontend-api version
         run: echo ::set-output name=version::$(mvn -Pgithub -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec --file pom.xml)
         id: frontEndFetchAPIVersion
 
