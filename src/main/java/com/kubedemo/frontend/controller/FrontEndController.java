@@ -1,5 +1,7 @@
 package com.kubedemo.frontend.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,8 @@ public class FrontEndController {
 
     private static Map<String, Date> REQUEST_MAP = new HashMap<>();
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FrontEndController.class);
+
     @GetMapping(path = "/getList")
     public Map<String, Date> getAllBackEndSystems() {
         Map<String, Date> returnValue = new HashMap<>(REQUEST_MAP);
@@ -23,6 +27,7 @@ public class FrontEndController {
 
     @PostMapping(path = "/addToList")
     public boolean addToBackendSystems(@RequestParam String name) {
+        LOGGER.info("Adding backend system [{}] to list.", name);
         REQUEST_MAP.put(name, new Date());
         return true;
     }
